@@ -5,7 +5,6 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -56,7 +55,7 @@ public class UserControllerWithMockMVCTest {
 	@Test
 	public void testFindById_caseFound() throws Exception {
 		mockMvc.perform(get("/user/findById/1")).andExpect(status().isFound()).andExpect(jsonPath("$.id").value(1))
-				.andExpect(jsonPath("$.name").value("JMK")).andDo(print());
+				.andExpect(jsonPath("$.name").value("JMK"));
 	}
 
 	@Test

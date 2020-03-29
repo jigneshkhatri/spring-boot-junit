@@ -44,17 +44,17 @@ public class UserControllerWithMockitoTest {
 	}
 
 	@Test
-	public void testSavePositive() {
+	public void testSave_casePositive() {
 		User user = new User(0L, "JMK", "Ahm");
 		Mockito.when(userService.save(user)).thenReturn(user);
 
 		ResponseEntity<User> result = this.userController.save(user);
-		assertEquals(result.getStatusCode(), HttpStatus.CREATED);
-		assertEquals(result.getBody(), user);
+		assertEquals(HttpStatus.CREATED, result.getStatusCode());
+		assertEquals(user, result.getBody());
 	}
 
 	@Test
-	public void testSaveNegative() {
+	public void testSave_caseNegative() {
 		expectedException.expect(CustomException.class);
 		expectedException.expect(Matchers.hasProperty("message", CoreMatchers.is("User name is required")));
 		expectedException.expect(Matchers.hasProperty("code", CoreMatchers.is("ERR1")));
@@ -65,19 +65,19 @@ public class UserControllerWithMockitoTest {
 	}
 
 	@Test
-	public void testFindByIdFound() {
+	public void testFindById_caseFound() {
 		User user = new User(1L, "JMK", "Ahm");
 		Mockito.when(userService.findById(1L)).thenReturn(user);
 		ResponseEntity<User> result = this.userController.findById(1L);
-		assertEquals(result.getStatusCode(), HttpStatus.FOUND);
-		assertEquals(result.getBody(), user);
+		assertEquals(HttpStatus.FOUND, result.getStatusCode());
+		assertEquals(user, result.getBody());
 	}
 
 	@Test
-	public void testFindByIdNotFound() {
+	public void testFindById_caseNotFound() {
 		Mockito.when(userService.findById(1L)).thenReturn(null);
 		ResponseEntity<User> result = this.userController.findById(1L);
-		assertEquals(result.getStatusCode(), HttpStatus.NOT_FOUND);
+		assertEquals(HttpStatus.NOT_FOUND, result.getStatusCode());
 	}
 
 }
